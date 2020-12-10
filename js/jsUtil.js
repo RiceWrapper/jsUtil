@@ -43,6 +43,12 @@ function validateForm(formId) {
                     isOK = false;
                 }
             }
+            if (inputs[i].number && !inputs[i].value) {
+                if (isNaN(inputs[i].value)) {
+                    $(inputs[i]).addClass("invalid");
+                    isOK = false;
+                }
+            }
             if (inputs[i].min && inputs[i].value) {
                 if (parseInt(inputs[i].value) < parseInt(inputs[i].min)) {
                     $(inputs[i]).addClass("invalid");
