@@ -96,9 +96,9 @@ function getInputValues(id) {
     let inputs = $(id).find('input[name], select[name], textarea[name]');
     inputs.each(i => {
         if (inputs[i].tagName == 'SELECT') {
-            data[inputs[i].name] = inputs[i].value;
+            data[inputs[i].name] = htmlencode(inputs[i].value);
         } else if (inputs[i].tagName == 'TEXTAREA') {
-            data[inputs[i].name] = inputs[i].value;
+            data[inputs[i].name] = htmlencode(inputs[i].value);
         } else if (inputs[i].tagName == 'INPUT') {
             switch (inputs[i].type) {
                 case "checkbox":
@@ -106,7 +106,7 @@ function getInputValues(id) {
                         data[inputs[i].name] = [];
                     }
                     if (inputs[i].checked) {
-                        data[inputs[i].name].push(inputs[i].value);
+                        data[inputs[i].name].push(htmlencode(inputs[i].value));
                     }
                     break;
                 case "hidden":
@@ -115,7 +115,7 @@ function getInputValues(id) {
                 case "number":
                 case "password":
                 default:
-                    data[inputs[i].name] = (inputs[i].value || "").trim();
+                    data[inputs[i].name] = htmlencode(inputs[i].value || "").trim();
                     break;
             }
         }
@@ -125,6 +125,13 @@ function getInputValues(id) {
 
 function getInput(id, name) {
     return $(id).find(`input[name="${name}"], select[name="${name}"], textarea[name="${name}"], a[name="${name}"]`);
+}
+
+function htmlencode(str){
+    // return str.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
 }
 
 String.format = (str, ...params) => {
