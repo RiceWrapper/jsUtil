@@ -43,7 +43,7 @@ function validateForm(formId) {
                     isOK = false;
                 }
             }
-            if (inputs[i].number && !inputs[i].value) {
+            if (inputs[i].number && inputs[i].value) {
                 if (isNaN(inputs[i].value)) {
                     $(inputs[i]).addClass("invalid");
                     isOK = false;
